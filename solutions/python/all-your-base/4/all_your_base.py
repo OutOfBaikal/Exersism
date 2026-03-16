@@ -1,0 +1,33 @@
+def rebase(input_base, digits, output_base):
+    if input_base < 2:
+        raise ValueError("input base must be >= 2")
+    if output_base < 2:
+        raise ValueError("output base must be >= 2")
+    num = to_decimal(input_base, digits)
+    return from_decimal(output_base, num)
+
+def to_decimal(input_base, digits):
+    res = 0
+    amount = len(digits)
+
+    for index, num in enumerate(digits):
+        if num < 0 or num >= input_base:
+            raise ValueError("all digits must satisfy 0 <= d < input base")
+        res += num * (input_base ** (amount - index - 1))
+
+    return res
+
+def from_decimal(output_base, num):
+    res = []
+    if num == 0:
+        return [0]
+    while num > 0:
+        res.append(num % output_base)
+        num //= output_base
+    amount = len(res)
+
+    for i in range(amount // 2):
+        j = amount - i - 1
+        res[i], res[j] = res[j], res[i]
+
+    return res
