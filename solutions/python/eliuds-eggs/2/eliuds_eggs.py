@@ -1,0 +1,8 @@
+"""Eliud's Eggs solution"""
+def egg_count(display_value):
+    "function"
+    res = 0
+    for i in range(0, 32):
+        res += ((display_value >> i) & 1)
+
+    return res
